@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import CenterLayout from "../components/layout"
 import "../styles/index.css"
-import {RgbColorPicker} from 'react-colorful'
+import {HexColorPicker} from 'react-colorful'
 
 // styles
 const pageStyles = {
@@ -217,19 +217,19 @@ const AppJumbotron = ({title}) => {
 
 const TestPage = () => {
   const [text, onTextChange] = useState("");
-  const [color, setColor] = useState("#ffffff");
+  const [color, setColor] = useState("#FFFFFF");
 
   return (
     <main>
       <title>SynTest</title>
       <AppJumbotron title={"Choose the color you associate with each stimulus"}/>
       <div className="container">
-        <RgbColorPicker id="picker" color={color} className="picker" onChange={setColor}/>
+        <HexColorPicker onChange={setColor} color={color}/>
         <div className="stimArea">
           <div className="stimDiv">
             <h1 className="stimulusText">{text}</h1>
           </div>
-          <div className="color-box" style={{"backgroundColor": color}}/>
+          <div className="color-box" style={{backgroundColor: color}}/>
         </div>
       </div>
     </main>
