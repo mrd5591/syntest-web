@@ -1,4 +1,7 @@
-import * as React from "react"
+import React, {useState, useEffect} from "react"
+import CenterLayout from "../components/layout"
+import "../styles/index.css"
+import {RgbColorPicker} from 'react-colorful'
 
 // styles
 const pageStyles = {
@@ -78,107 +81,159 @@ const badgeStyle = {
   lineHeight: 1,
 }
 
-// data
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-    color: "#E95800",
-  },
-  {
-    text: "How to Guides",
-    url: "https://www.gatsbyjs.com/docs/how-to/",
-    description:
-      "Practical step-by-step guides to help you achieve a specific goal. Most useful when you're trying to get something done.",
-    color: "#1099A8",
-  },
-  {
-    text: "Reference Guides",
-    url: "https://www.gatsbyjs.com/docs/reference/",
-    description:
-      "Nitty-gritty technical descriptions of how Gatsby works. Most useful when you need detailed information about Gatsby's APIs.",
-    color: "#BC027F",
-  },
-  {
-    text: "Conceptual Guides",
-    url: "https://www.gatsbyjs.com/docs/conceptual/",
-    description:
-      "Big-picture explanations of higher-level Gatsby concepts. Most useful for building understanding of a particular topic.",
-    color: "#0D96F2",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-    color: "#8EB814",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    badge: true,
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-    color: "#663399",
-  },
-]
+const letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const dotw = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+let stimBucket = [];
+let finalBucket = [];
 
 // markup
 const IndexPage = () => {
+  const [pageIndex, setPageIndex] = useState(0);
+
+  useEffect(() => {
+    return renderPage(pageIndex);
+  }, [pageIndex])
+
+  function renderPage(page) {
+    switch (page) {
+      case 0:
+        return <StartPage setPageIndex={setPageIndex}/>
+      case 1:
+        return <TestPage/>
+      default:
+        return <StartPage setPageIndex={setPageIndex}/>
+    }
+  }
+
   return (
-    <main style={pageStyles}>
-      <title>Home Page</title>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! </span>
-        <span role="img" aria-label="Party popper emojis">
-          🎉🎉🎉
-        </span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.js</code> to see this page
-        update in real-time.{" "}
-        <span role="img" aria-label="Sunglasses smiley emoji">
-          😎
-        </span>
-      </p>
-      <ul style={listStyles}>
-        <li style={docLinkStyle}>
-          <a
-            style={linkStyle}
-            href={`${docLink.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-          >
-            {docLink.text}
-          </a>
-        </li>
-        {links.map(link => (
-          <li key={link.url} style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-              >
-                {link.text}
-              </a>
-              {link.badge && (
-                <span style={badgeStyle} aria-label="New Badge">
-                  NEW!
-                </span>
-              )}
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
+    renderPage(pageIndex)
+  );
+}
+
+const StartPage = ({setPageIndex}) => {
+  const [letterActive, setLetterActive] = useState(0);
+  const [numberActive, setNumberActive] = useState(0);
+  const [dotwActive, setDotwActive] = useState(0);
+  const [monthActive, setMonthActive] = useState(0);
+  const [display, setDisplay] = useState("none");
+
+  useEffect(() => {
+    if(letterActive || numberActive || dotwActive || monthActive){
+      setDisplay("block");
+    } else {
+      setDisplay("none");
+    }
+  }, [letterActive, numberActive, dotwActive,monthActive]);
+
+  function startClicked() {
+    makeBucket();
+    setPageIndex(1);
+  }
+
+  function makeBucket() {
+    if(letterActive) {
+      stimBucket.push(...letters);
+    }
+    if(numberActive) {
+      stimBucket.push(...numbers);
+    }
+    if(dotwActive) {
+      stimBucket.push(...dotw);
+    }
+    if(monthActive) {
+      stimBucket.push(...months);
+    }
+
+    finalBucket.push(...shuffle(stimBucket));
+    finalBucket.push(...shuffle(stimBucket));
+    finalBucket.push(...shuffle(stimBucket));
+
+    console.log(finalBucket);
+  }
+
+  function shuffle(array) {
+    let currentIndex = array.length;
+    let randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
+  return (
+    <main className="background">
+      <title>SynTest</title>
+      <AppJumbotron title={"Select Stimuli"}/>
+      <div className="stimuli">
+        <StimulusButton title="Letters" setStimActive={setLetterActive}/>
+        <StimulusButton title="Numbers" setStimActive={setNumberActive}/>
+        <StimulusButton title="Days of the Week" setStimActive={setDotwActive}/>
+        <StimulusButton title="Months" setStimActive={setMonthActive}/>
+      </div>
+      <div id="startButton">
+        <button onClick={() => startClicked()} style={{"display": display}}>Start Test</button>
+      </div>
     </main>
-  )
+  );
+}
+
+const StimulusButton = ({title, setStimActive}) => {
+  const [active, toggleActive] = useState(false);
+  const [color, setColor] = useState("cornflowerblue");
+
+  useEffect(() => {
+    active ? setColor("green") : setColor("cornflowerblue");
+    setStimActive(active);
+  }, [active]);
+
+  return (
+    <button style={{"backgroundColor": color}} className="stimulus" onClick={() => toggleActive(active => !active)}>
+      {title}
+    </button>
+  );
+}
+
+const AppJumbotron = ({title}) => {
+  return (
+    <CenterLayout>
+      <div className="jumbotron">
+        <h2>{title}</h2>
+      </div>
+    </CenterLayout>
+  );
+}
+
+const TestPage = () => {
+  const [text, onTextChange] = useState("");
+  const [color, setColor] = useState("#ffffff");
+
+  return (
+    <main>
+      <title>SynTest</title>
+      <AppJumbotron title={"Choose the color you associate with each stimulus"}/>
+      <div className="container">
+        <RgbColorPicker id="picker" color={color} className="picker" onChange={setColor}/>
+        <div className="stimArea">
+          <div className="stimDiv">
+            <h1 className="stimulusText">{text}</h1>
+          </div>
+          <div className="color-box" style={{"backgroundColor": color}}/>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 export default IndexPage

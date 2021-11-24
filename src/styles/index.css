@@ -1,0 +1,125 @@
+.stimulus {
+    font-family: fantasy;
+    position: relative;
+    padding: 1%;
+    width: 100%;
+    display: block;
+    margin: 0.3rem auto;
+}
+
+.jumbotron {
+    background-color: cornflowerblue;
+    color: white;
+    width: fit-content;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    padding: 10px;
+    margin: 5% auto;
+    user-select: none;
+}
+
+.background {
+    background-color: coral;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.stimuli {
+    text-align: center;
+    text-justify:auto;
+    margin-bottom: 10%;
+    justify-content: center;
+    width: fit-content;
+    min-width: 25%;
+    margin: 0 auto;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: column dense;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-areas:
+      ". stimArea";
+    width: 75%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+  
+.stimArea {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "."
+      ".";
+    grid-area: stimArea;
+    width: 100%;
+    height: 100%;
+}
+  
+.stimDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    border-color: black;
+    position: relative;
+    font-family: fantasy;
+    text-align: center;
+    margin: 0 auto;
+    overflow: hidden;
+    user-select: none;
+}
+
+div {
+    border-radius: 10px;
+}
+
+* {
+    font-size: xx-large;
+    margin: 0;
+}
+
+#startButton {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2%;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkImage {
+    justify-content: right;
+}
+
+.stimulusText {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10vh;
+    user-select: none;
+}
+
+.color-box {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    display: inline-block;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+}
